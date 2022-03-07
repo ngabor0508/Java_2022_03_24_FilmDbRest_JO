@@ -18,18 +18,18 @@
       <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <TextField GridPane.columnIndex="1" />
+      <TextField fx:id="inputCim" promptText="Cím" GridPane.columnIndex="1" />
       <Label text="Cím" />
       <Label text="Kategória" GridPane.rowIndex="1" />
       <Label text="Hossz (perc)" GridPane.rowIndex="2" />
       <Label text="Értékelés" GridPane.rowIndex="3" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Spinner minWidth="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+      <TextField fx:id="inputKategoria" promptText="Kategória" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Spinner fx:id="inputHossz" editable="true" minWidth="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <valueFactory>
             <SpinnerValueFactory.IntegerSpinnerValueFactory amountToStepBy="10" initialValue="100" max="999" min="1" />
          </valueFactory>
       </Spinner>
-      <ChoiceBox minWidth="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
+      <ChoiceBox fx:id="inputErtekeles" minWidth="100.0" prefWidth="200.0" value="5" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <Integer fx:value="1" />
@@ -45,6 +45,6 @@
             </FXCollections>
          </items>
    </ChoiceBox>
-      <Button minWidth="100.0" mnemonicParsing="false" prefWidth="200.0" text="Hozzáadás" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+      <Button minWidth="100.0" mnemonicParsing="false" onAction="#onHozzaadButtonClick" prefWidth="200.0" text="Button" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
    </children>
 </GridPane>
