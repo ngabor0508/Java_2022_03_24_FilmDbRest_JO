@@ -19,7 +19,7 @@ import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class MainController {
+public class MainController extends Controller{
 
     @FXML
     private TableView<Film> filmTable;
@@ -49,20 +49,6 @@ public class MainController {
         catch (SQLException e) {
             hibaKiir(e);
         }
-    }
-
-    private void hibaKiir(Exception e) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Hiba");
-        alert.setHeaderText(e.getClass().toString());
-        alert.setContentText(e.getMessage());
-        Timer alertTimer = new Timer();
-        alertTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> alert.show());
-            }
-        }, 500);
     }
 
     @FXML
