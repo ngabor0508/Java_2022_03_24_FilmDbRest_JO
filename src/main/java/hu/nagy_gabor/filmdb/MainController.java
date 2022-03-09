@@ -31,6 +31,7 @@ public class MainController extends Controller{
     private TableColumn<Film, Integer> colHossz;
     @FXML
     private TableColumn<Film, Integer> colErtekeles;
+    private FilmDb db;
 
     public void initialize(){
         colCim.setCellValueFactory(new PropertyValueFactory<>("cim"));
@@ -40,11 +41,8 @@ public class MainController extends Controller{
         colHossz.setCellValueFactory(new PropertyValueFactory<>("hossz"));
         colErtekeles.setCellValueFactory(new PropertyValueFactory<>("ertekeles"));
         try {
-            FilmDb db = new FilmDb();
-            List<Film> filmList = db.getFilmek();
-            for (Film film:filmList) {
-                filmTable.getItems().add(film);
-            }
+            db = new FilmDb();
+            filmListaFeltolt();
         }
         catch (SQLException e) {
             hibaKiir(e);
@@ -59,10 +57,25 @@ public class MainController extends Controller{
             Scene scene = new Scene(fxmlLoader.load(), 320, 400);
             stage.setTitle("FilmDb");
             stage.setScene(scene);
+            stage.setOnCloseRequest(event -> filmListaFeltolt());
             stage.show();
         } catch (Exception e) {
             hibaKiir(e);
         }
+    }
+
+    private void filmListaFeltolt(){
+        try {
+            List<Film> filmList = db.getFilmek();
+            filmTable.getItems().clear();
+            for (Film film:filmList) {
+                filmTable.getItems().add(film);
+            }
+
+        } catch (SQLException e) {
+            hibaKiir(e);
+        }
+
     }
 
     @FXML
