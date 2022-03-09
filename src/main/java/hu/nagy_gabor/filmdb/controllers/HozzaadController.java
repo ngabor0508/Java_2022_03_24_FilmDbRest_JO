@@ -1,5 +1,7 @@
-package hu.nagy_gabor.filmdb;
+package hu.nagy_gabor.filmdb.controllers;
 
+import hu.nagy_gabor.filmdb.Controller;
+import hu.nagy_gabor.filmdb.FilmDb;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,7 +11,7 @@ import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HozzaadController extends Controller{
+public class HozzaadController extends Controller {
     @FXML
     private TextField inputCim;
     @FXML

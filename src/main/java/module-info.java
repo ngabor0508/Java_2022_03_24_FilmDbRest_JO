@@ -6,4 +6,6 @@ module hu.nagy_gabor.filmdb {
 
     opens hu.nagy_gabor.filmdb to javafx.fxml;
     exports hu.nagy_gabor.filmdb;
+    exports hu.nagy_gabor.filmdb.controllers;
+    opens hu.nagy_gabor.filmdb.controllers to javafx.fxml;
 }
