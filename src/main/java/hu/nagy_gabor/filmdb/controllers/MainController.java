@@ -56,11 +56,13 @@ public class MainController extends Controller {
     @FXML
     public void onHozzaadasButtonClick(ActionEvent actionEvent) {
         try {
+            ujAblak("hozzaad-view.fxml", "Film hozzáadása", 320, 400);
             Stage stage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(FilmApp.class.getResource("hozzaad-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 320, 400);
             stage.setTitle("FilmDb");
             stage.setScene(scene);
+
             stage.setOnCloseRequest(event -> filmListaFeltolt());
             stage.show();
         } catch (Exception e) {
@@ -84,6 +86,12 @@ public class MainController extends Controller {
 
     @FXML
     public void onModositasButtonClick(ActionEvent actionEvent) {
+        int selectedIndex = filmTable.getSelectionModel().getSelectedIndex();
+        if(selectedIndex == -1){
+            alert("A módosításhoz előbb válasszon ki egy elemet a táblázatból");
+            return;
+        }
+        Film modositando = filmTable.getSelectionModel().getSelectedItem();
     }
 
     @FXML

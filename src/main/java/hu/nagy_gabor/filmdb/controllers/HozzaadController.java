@@ -41,7 +41,6 @@ public class HozzaadController extends Controller {
             alert("A hossz megadása kötelező!");
             return;
         } catch (Exception ex){
-            System.out.println(ex);
             alert("A hossz csak 1 és 999 közötti szám lehet!");
             return;
         }
@@ -53,7 +52,6 @@ public class HozzaadController extends Controller {
             alert("Értékelés kiválasztása kötelező!");
             return;
         }
-        System.out.println(hossz);
         int ertekeles = inputErtekeles.getValue();
 
         try {

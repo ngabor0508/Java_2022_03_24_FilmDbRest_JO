@@ -45,6 +45,6 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Button minWidth="100.0" mnemonicParsing="false" onAction="#onHozzaadButtonClick" prefWidth="200.0" text="Hozzáadás" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
+        <Button minWidth="100.0" mnemonicParsing="false" onAction="#onModositButtonClick" prefWidth="200.0" text="Módosítás" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
     </children>
 </GridPane>
