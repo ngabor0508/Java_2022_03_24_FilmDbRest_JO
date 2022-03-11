@@ -16,12 +16,23 @@ public abstract class Controller {
 
     protected Stage stage;
 
+    public Stage getStage() {
+        return stage;
+    }
+
     //hozzaad controllerből áthelyezve
     protected void alert(String uzenet) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setContentText(uzenet);
         alert.getButtonTypes().add(ButtonType.OK);
         alert.show();
+    }
+
+    protected void alertWait(String uzenet) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setContentText(uzenet);
+        alert.getButtonTypes().add(ButtonType.OK);
+        alert.showAndWait();
     }
 
     protected boolean confirm(String uzenet){
@@ -57,5 +68,6 @@ public abstract class Controller {
         controller.stage = stage;
         return controller;
     }
+
 
 }

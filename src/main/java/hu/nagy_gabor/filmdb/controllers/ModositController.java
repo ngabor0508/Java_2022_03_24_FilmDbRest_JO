@@ -2,11 +2,14 @@ package hu.nagy_gabor.filmdb.controllers;
 
 import hu.nagy_gabor.filmdb.Controller;
 import hu.nagy_gabor.filmdb.Film;
+import hu.nagy_gabor.filmdb.FilmDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
+
+import java.sql.SQLException;
 
 public class ModositController extends Controller {
     @FXML
@@ -52,6 +55,23 @@ public class ModositController extends Controller {
         }
         int ertekeles = inputErtekeles.getValue();
 
+        modositando.setCim(cim);
+        modositando.setKategoria(kategoria);
+        modositando.setErtekeles(ertekeles);
+        modositando.setHossz(hossz);
+
+        try {
+            FilmDb db = new FilmDb();
+            if (db.filmModositasa(modositando)){
+                alertWait("Sikeres módosítás!");
+                this.stage.close();
+            } else {
+                alert("Sikertelen módosítás!");
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Film getModositando() {
@@ -60,5 +80,13 @@ public class ModositController extends Controller {
 
     public void setModositando(Film modositando) {
         this.modositando = modositando;
+        ertekekBeallitasa();
+    }
+
+    private void ertekekBeallitasa(){
+        inputCim.setText(modositando.getCim());
+        inputKategoria.setText(modositando.getKategoria());
+        inputHossz.getValueFactory().setValue(modositando.getHossz());
+        inputErtekeles.setValue(modositando.getErtekeles());
     }
 }

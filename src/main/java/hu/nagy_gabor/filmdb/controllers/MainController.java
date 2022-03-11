@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -56,15 +55,10 @@ public class MainController extends Controller {
     @FXML
     public void onHozzaadasButtonClick(ActionEvent actionEvent) {
         try {
-            ujAblak("hozzaad-view.fxml", "Film hozzáadása", 320, 400);
-            Stage stage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(FilmApp.class.getResource("hozzaad-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 320, 400);
-            stage.setTitle("FilmDb");
-            stage.setScene(scene);
-
-            stage.setOnCloseRequest(event -> filmListaFeltolt());
-            stage.show();
+            Controller hozzaadas = ujAblak("hozzaad-view.fxml", "Film hozzáadása",
+                    320, 400);
+            hozzaadas.getStage().setOnCloseRequest(event -> filmListaFeltolt());
+            hozzaadas.getStage().show();
         } catch (Exception e) {
             hibaKiir(e);
         }
@@ -92,6 +86,15 @@ public class MainController extends Controller {
             return;
         }
         Film modositando = filmTable.getSelectionModel().getSelectedItem();
+        try {
+            ModositController modositas = (ModositController) ujAblak("modosit-view.fxml", "Film módosítása",
+                    320, 400);
+            modositas.setModositando(modositando);
+            modositas.getStage().setOnHiding(event -> filmTable.refresh());
+            modositas.getStage().show();
+        } catch (IOException e) {
+            hibaKiir(e);
+        }
     }
 
     @FXML

@@ -48,11 +48,11 @@ public class FilmDb {
     }
 
     public boolean filmModositasa(Film modositando) throws SQLException {
-        String sql = "UPDADE filmek SET" +
+        String sql = "UPDATE filmek SET " +
                 "cim = ?," +
                 "kategoria = ?," +
                 "hossz = ?," +
-                "ertekeles = ?" +
+                "ertekeles = ? " +
                 "WHERE id = ?";
         PreparedStatement stmt = conn.prepareStatement(sql);
         stmt.setString(1, modositando.getCim());
