@@ -6,7 +6,7 @@
 
     <groupId>hu.nagy_gabor</groupId>
     <artifactId>FilmDb</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>FilmDb</name>
 
     <properties>
@@ -67,6 +67,24 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>hu.nagy_gabor.filmdb/hu.nagy_gabor.filmdb.FilmApp</mainClass>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>1.6.5</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>hu.nagy_gabor.filmdb.Main</mainClass>
+                            <bundleJre>true</bundleJre>
+                            <platform>windows</platform>
                         </configuration>
                     </execution>
                 </executions>
