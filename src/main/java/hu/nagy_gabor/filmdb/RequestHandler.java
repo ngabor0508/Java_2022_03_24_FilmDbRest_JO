@@ -30,6 +30,8 @@ public class RequestHandler {
             builder.append(sor);
             sor = br.readLine();
         }
+        br.close();
+        is.close();
         return new Response(responseCode, builder.toString());
     }
 }
