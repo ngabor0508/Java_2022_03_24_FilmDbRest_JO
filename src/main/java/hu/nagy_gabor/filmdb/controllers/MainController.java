@@ -1,9 +1,8 @@
 package hu.nagy_gabor.filmdb.controllers;
 
-import hu.nagy_gabor.filmdb.Controller;
-import hu.nagy_gabor.filmdb.Film;
-import hu.nagy_gabor.filmdb.FilmApp;
-import hu.nagy_gabor.filmdb.FilmDb;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import hu.nagy_gabor.filmdb.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Timer;
@@ -43,13 +43,7 @@ public class MainController extends Controller {
         colKategoria.setCellValueFactory(new PropertyValueFactory<>("kategoria"));
         colHossz.setCellValueFactory(new PropertyValueFactory<>("hossz"));
         colErtekeles.setCellValueFactory(new PropertyValueFactory<>("ertekeles"));
-        try {
-            db = new FilmDb();
-            filmListaFeltolt();
-        }
-        catch (SQLException e) {
-            hibaKiir(e);
-        }
+        filmListaFeltolt();
     }
 
     @FXML
@@ -66,16 +60,23 @@ public class MainController extends Controller {
 
     private void filmListaFeltolt(){
         try {
-            List<Film> filmList = db.getFilmek();
+            Response response = RequestHandler.get("");
+            String json = response.getContent();
+            if(response.getResponseCode() >= 400){
+                System.out.println(json);
+                return;
+            }
+            Gson jsonConvert = new Gson();
+            Type type = new TypeToken<List<Film>>(){}.getType();
+            List<Film> filmList = jsonConvert.fromJson(json, type);
             filmTable.getItems().clear();
             for (Film film:filmList) {
                 filmTable.getItems().add(film);
             }
 
-        } catch (SQLException e) {
+        } catch (IOException e) {
             hibaKiir(e);
         }
-
     }
 
     @FXML
