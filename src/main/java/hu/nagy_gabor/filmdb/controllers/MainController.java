@@ -60,15 +60,7 @@ public class MainController extends Controller {
 
     private void filmListaFeltolt(){
         try {
-            Response response = RequestHandler.get("");
-            String json = response.getContent();
-            if(response.getResponseCode() >= 400){
-                System.out.println(json);
-                return;
-            }
-            Gson jsonConvert = new Gson();
-            Type type = new TypeToken<List<Film>>(){}.getType();
-            List<Film> filmList = jsonConvert.fromJson(json, type);
+            List<Film> filmList = FilmApi.getFilmek();
             filmTable.getItems().clear();
             for (Film film:filmList) {
                 filmTable.getItems().add(film);
