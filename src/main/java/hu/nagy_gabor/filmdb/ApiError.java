@@ -1,7 +1,7 @@
 package hu.nagy_gabor.filmdb;
 
 public class ApiError {
-    String message;
+    private String message;
 
     public ApiError(String message) {
         this.message = message;

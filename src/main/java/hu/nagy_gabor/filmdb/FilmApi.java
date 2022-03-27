@@ -9,17 +9,19 @@ import java.util.List;
 
 public class FilmApi {
 
+    private static final String BASE_URL = "http://localhost:8000";
+    private static final String FILM_API_URL = BASE_URL + "/api/film";
+
     public static List<Film> getFilmek() throws IOException {
-        Response response = RequestHandler.get("http://localhost:8000/api/film/35");
+        Response response = RequestHandler.get(FILM_API_URL);
         String json = response.getContent();
         Gson jsonConvert = new Gson();
         if(response.getResponseCode() >= 400){
             System.out.println(json);
-            String message = jsonConvert.fromJson(json, String.class);
+            String message = jsonConvert.fromJson(json, ApiError.class).getMessage();
             throw new IOException(message);
         }
         Type type = new TypeToken<List<Film>>(){}.getType();
-        List<Film> filmList = jsonConvert.fromJson(json, type);
-        return filmList;
+        return jsonConvert.fromJson(json, type);
     }
 }
