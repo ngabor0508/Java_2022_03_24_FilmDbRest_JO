@@ -1,26 +1,16 @@
 package hu.nagy_gabor.filmdb.controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import hu.nagy_gabor.filmdb.*;
-import javafx.application.Platform;
+import hu.nagy_gabor.filmdb.Controller;
+import hu.nagy_gabor.filmdb.Film;
+import hu.nagy_gabor.filmdb.FilmApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainController extends Controller {
 
@@ -34,7 +24,6 @@ public class MainController extends Controller {
     private TableColumn<Film, Integer> colHossz;
     @FXML
     private TableColumn<Film, Integer> colErtekeles;
-    private FilmDb db;
 
     public void initialize(){
         colCim.setCellValueFactory(new PropertyValueFactory<>("cim"));
@@ -102,10 +91,10 @@ public class MainController extends Controller {
             return;
         }
         try {
-            db.filmTorlese(torlendoFilm.getId());
-            alert("Sikeres a törlés");
+            boolean sikeres = FilmApi.filmTorlese(torlendoFilm.getId());
+            alert(sikeres?  "Sikeres a törlés" : "Sikertelen törlés");
             filmListaFeltolt();
-        } catch (SQLException e) {
+        } catch (IOException e) {
             hibaKiir(e);
         }
     }

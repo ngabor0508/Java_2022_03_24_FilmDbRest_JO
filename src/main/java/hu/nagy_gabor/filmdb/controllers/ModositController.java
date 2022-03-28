@@ -2,14 +2,14 @@ package hu.nagy_gabor.filmdb.controllers;
 
 import hu.nagy_gabor.filmdb.Controller;
 import hu.nagy_gabor.filmdb.Film;
-import hu.nagy_gabor.filmdb.FilmDb;
+import hu.nagy_gabor.filmdb.FilmApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
 
-import java.sql.SQLException;
+import java.io.IOException;
 
 public class ModositController extends Controller {
     @FXML
@@ -61,15 +61,15 @@ public class ModositController extends Controller {
         modositando.setHossz(hossz);
 
         try {
-            FilmDb db = new FilmDb();
-            if (db.filmModositasa(modositando)){
+            Film modositott = FilmApi.filmModositasa(modositando);
+            if (modositott != null){
                 alertWait("Sikeres módosítás!");
                 this.stage.close();
             } else {
                 alert("Sikertelen módosítás!");
 
             }
-        } catch (SQLException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
