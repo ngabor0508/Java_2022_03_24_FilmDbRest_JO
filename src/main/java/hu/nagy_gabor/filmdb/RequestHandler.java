@@ -34,7 +34,7 @@ public class RequestHandler {
     }
 
     private static void addRequestBody(HttpURLConnection conn, String data) throws IOException{
-        conn.setRequestProperty("Concent-Type", "application/json");
+        conn.setRequestProperty("Content-Type", "application/json");
         conn.setDoOutput(true);
         OutputStream os = conn.getOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
