@@ -71,7 +71,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>hu.nagy_gabor.filmdb/hu.nagy_gabor.filmdb.FilmApp</mainClass>
+                            <mainClass>hu.nagy_gabor.filmdb/hu.nagy_gabor.filmdb.TermekApp</mainClass>
                         </configuration>
                     </execution>
                 </executions>

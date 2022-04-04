@@ -13,21 +13,21 @@ public class RequestHandler {
         return getResponse(conn);
     }
 
-    public static Response post(String url, String data) throws IOException {
+    public static Response post(String url, String data) throws IOException { //Create
         HttpURLConnection conn = setupConnection(url);
         conn.setRequestMethod("POST");
         addRequestBody(conn, data);
         return getResponse(conn);
     }
 
-    public static Response put(String url, String data) throws IOException{
+    public static Response put(String url, String data) throws IOException{ //update
         HttpURLConnection conn = setupConnection(url);
         conn.setRequestMethod("PUT");
         addRequestBody(conn, data);
         return getResponse(conn);
     }
 
-    public static Response delete(String url) throws IOException {
+    public static Response delete(String url) throws IOException { //delete
         HttpURLConnection conn = setupConnection(url);
         conn.setRequestMethod("DELETE");
         return getResponse(conn);

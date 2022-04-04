@@ -1,8 +1,8 @@
 package hu.nagy_gabor.filmdb.controllers;
 
 import hu.nagy_gabor.filmdb.Controller;
-import hu.nagy_gabor.filmdb.Film;
-import hu.nagy_gabor.filmdb.FilmApi;
+import hu.nagy_gabor.filmdb.Termek;
+import hu.nagy_gabor.filmdb.TermekApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -13,56 +13,72 @@ import java.io.IOException;
 
 public class ModositController extends Controller {
     @FXML
-    private TextField inputCim;
+    private TextField inputKodszam;
+    @FXML
+    private TextField inputName;
+    @FXML
+    private Spinner<Integer> inputPrice;
+    @FXML
+    private ChoiceBox<Integer> inputQuantity;
+    @FXML
+    private TextField inputUrl;
     @FXML
     private TextField inputKategoria;
-    @FXML
-    private Spinner<Integer> inputHossz;
-    @FXML
-    private ChoiceBox<Integer> inputErtekeles;
-    private Film modositando;
+    private Termek modositando;
 
     @FXML
     public void onModositButtonClick(ActionEvent actionEvent) {
-        String cim = inputCim.getText().trim();
+        String kodszam = inputKodszam.getText().trim();
+        String name = inputName.getText().trim();
+        int price = 0;
+        int quantityIndex = inputQuantity.getSelectionModel().getSelectedIndex();
+        String url = inputUrl.getText().trim();
         String kategoria = inputKategoria.getText().trim();
-        int hossz = 0;
-        int ertekelesIndex = inputErtekeles.getSelectionModel().getSelectedIndex();
-        if(cim.isEmpty()){
-            alert("Cím megadása kötelező!");
+        if (kodszam.isEmpty()) {
+            alert("Kódszám megadása kötelező!");
             return;
         }
-        if(kategoria.isEmpty()){
-            alert("Kategória megadása kötelező");
+        if (name.isEmpty()) {
+            alert("Név megadása kötelező");
             return;
         }
         try {
-            hossz = inputHossz.getValue();
-        } catch (NullPointerException ex){
-            alert("A hossz megadása kötelező!");
+            price = inputPrice.getValue();
+        } catch (NullPointerException ex) {
+            alert("Az ár megadása kötelező!");
             return;
-        } catch (Exception ex){
+        } catch (Exception ex) {
+            alert("Az ár csak 1 és 999 közötti szám lehet!");
+            return;
+        }
+        if (price < 1 || price > 999) {
             alert("A hossz csak 1 és 999 közötti szám lehet!");
             return;
         }
-        if(hossz < 1 || hossz > 999){
-            alert("A hossz csak 1 és 999 közötti szám lehet!");
-            return;
-        }
-        if(ertekelesIndex == -1){
+        if (quantityIndex == -1) {
             alert("Értékelés kiválasztása kötelező!");
             return;
         }
-        int ertekeles = inputErtekeles.getValue();
+        int quantity = inputQuantity.getValue();
+        if (url.isEmpty()) {
+            alert("Url megadása kötelező!");
+            return;
+        }
+        if (kategoria.isEmpty()) {
+            alert("Kategória megadása kötelező!");
+            return;
+        }
 
-        modositando.setCim(cim);
+        modositando.setKodszam(kodszam);
+        modositando.setName(name);
+        modositando.setPrice(price);
+        modositando.setQuantity(quantity);
+        modositando.setUrl(url);
         modositando.setKategoria(kategoria);
-        modositando.setErtekeles(ertekeles);
-        modositando.setHossz(hossz);
 
         try {
-            Film modositott = FilmApi.filmModositasa(modositando);
-            if (modositott != null){
+            Termek modositott = TermekApi.termekModositasa(modositando);
+            if (modositott != null) {
                 alertWait("Sikeres módosítás!");
                 this.stage.close();
             } else {
@@ -74,19 +90,21 @@ public class ModositController extends Controller {
         }
     }
 
-    public Film getModositando() {
+    public Termek getModositando() {
         return modositando;
     }
 
-    public void setModositando(Film modositando) {
+    public void setModositando(Termek modositando) {
         this.modositando = modositando;
         ertekekBeallitasa();
     }
 
-    private void ertekekBeallitasa(){
-        inputCim.setText(modositando.getCim());
+    private void ertekekBeallitasa() {
+        inputKodszam.setText(modositando.getKodszam());
+        inputName.setText(modositando.getName());
+        inputPrice.getValueFactory().setValue(modositando.getPrice());
+        inputQuantity.setValue(modositando.getQuantity());
+        inputUrl.setText(modositando.getUrl());
         inputKategoria.setText(modositando.getKategoria());
-        inputHossz.getValueFactory().setValue(modositando.getHossz());
-        inputErtekeles.setValue(modositando.getErtekeles());
     }
 }

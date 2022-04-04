@@ -15,12 +15,14 @@
          <Button maxWidth="100.0" minWidth="100.0" mnemonicParsing="false" onAction="#onTorlesButtonClick" prefWidth="100.0" text="Törlés" />
       </children>
    </HBox>
-   <TableView fx:id="filmTable" minHeight="200.0" prefHeight="200.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
+   <TableView fx:id="termekTable" minHeight="200.0" prefHeight="200.0" prefWidth="500.0" VBox.vgrow="ALWAYS">
      <columns>
-       <TableColumn fx:id="colCim" minWidth="50.0" prefWidth="200.0" text="Cím" />
-       <TableColumn fx:id="colKategoria" minWidth="50.0" prefWidth="150.0" text="Kategória" />
-         <TableColumn fx:id="colHossz" minWidth="50.0" prefWidth="75.0" text="Hossz" />
-         <TableColumn fx:id="colErtekeles" minWidth="50.0" prefWidth="75.0" text="Értékelés" />
+       <TableColumn fx:id="colKodszam" minWidth="50.0" prefWidth="200.0" text="Kódszám" />
+       <TableColumn fx:id="colName" minWidth="50.0" prefWidth="150.0" text="Név" />
+         <TableColumn fx:id="colPrice" minWidth="50.0" prefWidth="75.0" text="Ár" />
+         <TableColumn fx:id="colQuantity" minWidth="50.0" prefWidth="75.0" text="Mennyiség" />
+         <TableColumn fx:id="colUrl" minWidth="50.0" prefWidth="75.0" text="URL" />
+         <TableColumn fx:id="colKategoria" minWidth="50.0" prefWidth="75.0" text="Kategória" />
      </columns>
    </TableView>
 </VBox>

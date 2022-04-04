@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class FilmApi {
+public class TermekApi {
 
     private static final String BASE_URL = "http://localhost:8000";
-    public static final String FILM_API_URL = BASE_URL + "/api/film";
+    public static final String TERMEK_API_URL = BASE_URL + "/api/termekek";
 
-    public static List<Film> getFilmek() throws IOException {
-        Response response = RequestHandler.get(FILM_API_URL);
+    public static List<Termek> getTermekek() throws IOException {
+        Response response = RequestHandler.get(TERMEK_API_URL);
         String json = response.getContent();
         Gson jsonConvert = new Gson();
         if(response.getResponseCode() >= 400){
@@ -21,38 +21,38 @@ public class FilmApi {
             String message = jsonConvert.fromJson(json, ApiError.class).getMessage();
             throw new IOException(message);
         }
-        Type type = new TypeToken<List<Film>>(){}.getType();
+        Type type = new TypeToken<List<Termek>>(){}.getType();
         return jsonConvert.fromJson(json, type);
     }
 
-    public static Film filmHozzaadasa(Film ujFilm) throws IOException {
+    public static Termek termekHozzaadasa(Termek ujTermek) throws IOException {
         Gson jsonConvert = new Gson();
-        String filmJson = jsonConvert.toJson(ujFilm);
-        Response response = RequestHandler.post(FILM_API_URL, filmJson);
+        String termekJson = jsonConvert.toJson(ujTermek);
+        Response response = RequestHandler.post(TERMEK_API_URL, termekJson);
         String json = response.getContent();
         if(response.getResponseCode() >= 400){
             System.out.println(json);
             String message = jsonConvert.fromJson(json, ApiError.class).getMessage();
             throw new IOException(message);
         }
-        return jsonConvert.fromJson(json, Film.class);
+        return jsonConvert.fromJson(json, Termek.class);
     }
 
-    public static Film filmModositasa(Film modositando) throws IOException {
+    public static Termek termekModositasa(Termek modositando) throws IOException {
         Gson jsonConvert = new Gson();
-        String filmJson = jsonConvert.toJson(modositando);
-        Response response = RequestHandler.put(FILM_API_URL + "/" + modositando.getId(), filmJson);
+        String termekJson = jsonConvert.toJson(modositando);
+        Response response = RequestHandler.put(TERMEK_API_URL + "/" + modositando.getId(), termekJson);
         String json = response.getContent();
         if(response.getResponseCode() >= 400){
             System.out.println(json);
             String message = jsonConvert.fromJson(json, ApiError.class).getMessage();
             throw new IOException(message);
         }
-        return jsonConvert.fromJson(json, Film.class);
+        return jsonConvert.fromJson(json, Termek.class);
     }
 
-    public static boolean filmTorlese(int id) throws IOException {
-       Response response = RequestHandler.delete(FILM_API_URL + "/" + id);
+    public static boolean termekTorlese(int id) throws IOException {
+       Response response = RequestHandler.delete(TERMEK_API_URL + "/" + id);
         Gson jsonConvert = new Gson();
         String json = response.getContent();
         if(response.getResponseCode() >= 400){
